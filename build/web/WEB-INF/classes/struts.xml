@@ -1,0 +1,107 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <action name="Login" class="tupt.controllers.LoginAction">
+            <result name="admin">admin.jsp</result>
+            <result name="user">index.jsp</result>
+            <result name="fail">login.jsp</result>
+            <result name="input">login.jsp</result>
+        </action>
+        <action name="Logout" class="tupt.controllers.LogoutAction">
+            <result name="logout">login.jsp</result>
+        </action>                 
+        <action name="Insert" class="tupt.controllers.InsertAction">
+            <result name="success">index.jsp</result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="UpdateProfile" class="tupt.controllers.UpdateProfileAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">ReloadProfile</param>
+                <param name="customerID">%{#session.CUSTOMER.customerID}</param>
+            </result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="ReloadProfile" class="tupt.controllers.ReloadProfileAction">
+            <result name="success">profile.jsp</result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="LoadBookTour" class="tupt.controllers.LoadBookTourAction">
+            <result name="success">booked-tour.jsp</result>
+        </action>
+        <action name="ChangePassword" class="tupt.controllers.ChangePasswordAction">
+            <result name="success">profile.jsp</result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="SearchTour" class="tupt.controllers.SearchAction">
+            <result name="success">search.jsp</result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="LoadTour" class="tupt.controllers.LoadTourAction">
+            <result name="success">tour.jsp</result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="BookTour" class="tupt.controllers.BookTourAction">
+            <result name="success">booktour.jsp</result>
+            <result name="fail">error.jsp</result>
+            <result name="input">booktour.jsp</result>
+        </action>
+        <action name="SendContact" class="tupt.controllers.SendContactAction">
+            <result name="success">index.jsp</result>
+            <result name="fail">error.jsp</result>
+            <result name="input">contact.jsp</result>
+        </action>
+        <action name="DeleteBookTour" class="tupt.controllers.DeleteBookTourAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">LoadBookTour</param>
+                <param name="customerID">%{param.customerID}</param>
+            </result>
+        </action>
+        <action name="AdminSearchTour" class="tupt.controllers.AdminSearchTourAction">
+            <result name="success">tour-management.jsp</result>
+        </action>
+        <action name="AdminDeleteTour" class="tupt.controllers.AdminDeleteTourAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">AdminSearchTour</param>
+                <param name="search">%{param.search}</param>
+            </result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="AdminEditTour" class="tupt.controllers.AdminEditTourAction">
+            <result name="success">update-tour.jsp</result>           
+        </action>
+        <action name="AdminUpdateTour" class="tupt.controllers.AdminUpdateTourAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">AdminSearchTour</param>
+                <param name="search">%{param.search}</param>
+            </result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="AdminInsertTour" class="tupt.controllers.AdminInsertTourAction">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">2097152</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="input">insert-tour.jsp</result>
+            <result name="success">tour-management.jsp</result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="AdminSearchCustomer" class="tupt.controllers.AdminSearchCustomerAction">
+            <result name="success">user-management.jsp</result>
+        </action>
+        <action name="AdminBanCustomer" class="tupt.controllers.AdminBanCustomerAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">AdminSearchCustomer</param>
+                <param name="search">%{param.search}</param>
+            </result>
+            <result name="fail">error.jsp</result>
+        </action>
+        
+    </package>
+</struts>
